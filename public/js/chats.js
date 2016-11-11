@@ -8,32 +8,36 @@
       addChatMessage(chat)
     })
 
-
-function addChatMessage(chat){
-
-var parent = document.getElementById('messages')
-var child = parent.firstChild;
-var row
-row = document.createElement('li')
-parent.classList.add('list-group-item')
-parent.innerHTML = chat.message
-parent.insertBefore(child)
-}
-//from tom ... get the parent div and child and use use before, implement logic to add chat to message div, the addChatMessage(chat) function will take the incoming Pusher chat object and using native DOM methods to append it to the messages list - use console log to see what's in the object
-
-
-document.getElementById('messages').addEventListener('keypress', enterKey)
+var message = document.getElementById('message')
+message.addEventListener('keypress', enterKey)
 
 function enterKey (event) {
   if (event.key === 'Enter'){
-    fetch('/chats', {
-      method: 'POST',
-        body: JSON.stringify({
-          message: message.value
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
+
+    var enterClear = document.getElementById('message').value
+    enterClear.value = ''
+      fetchMsg()
     }
+}
+
+function fetchMsg() {
+  fetch('/chats', {
+      body: JSON.stringify({
+      message: message.value,
+    }),
+    method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+}
+
+function addChatMessage(chat){
+console.log(chat)
+var parent = document.getElementById('messages')
+var child = parent.firstChild;
+var row = document.createElement('li')
+row.classList.add('list-group-item')
+row.innerHTML = chat.message
+parent.insertBefore(row, child)
 }

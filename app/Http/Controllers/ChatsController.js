@@ -7,14 +7,10 @@ class ChatsController {
 
   * index(request, response) {
     var chats = yield Chat.query().orderBy('id','desc')
-yield response.sendView('chats', {
-  chats: chats
-})
+    yield response.sendView('chats', {
+      chats: chats
+    })
 
-  }
-
-  * create(request, response) {
-    //
   }
 
   * store(request, response) {
@@ -31,30 +27,16 @@ var pusher = new Pusher({
 pusher.trigger('chat_app', 'new_chat', {
   message: message
 })
+
 // save the message to your Chat model here...
-var chat = new chat()
+var chat = new Chat()
 chat.message = message
-yield message.save()
+yield chat.save()
 
 response.json(true)
 
   }
 
-  * show(request, response) {
-    //
-  }
-
-  * edit(request, response) {
-    //
-  }
-
-  * update(request, response) {
-    //
-  }
-
-  * destroy(request, response) {
-    //
-  }
 
 }
 
