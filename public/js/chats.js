@@ -13,9 +13,6 @@ message.addEventListener('keypress', enterKey)
 
 function enterKey (event) {
   if (event.key === 'Enter'){
-
-    var enterClear = document.getElementById('message').value
-    enterClear.value = ''
       fetchMsg()
     }
 }
